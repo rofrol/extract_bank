@@ -11,16 +11,6 @@ import (
 )
 
 func main() {
-	// bytes.Buffer does not implement io.Writer
-	// output needs to be pointer 
-	// http://my.safaribooksonline.com/book/programming/9780132918961/a-go-primer/ch02lev1sec8
-	// https://groups.google.com/forum/?fromgroups=#!topic/golang-nuts/xXFpT8oLGNU
-	// https://groups.google.com/forum/?fromgroups=#!topic/golang-nuts/jDcbmzDaLi8
-	//var output bytes.Buffer
-	//than html.Render(&ouput, node)
-	//or
-	//output := new(bytes.Buffer)
-	//than html.Render(output, node)
 	var page *os.File
 	var err error
 	if page, err = os.Open("bank_2012.html"); err != nil {
@@ -60,10 +50,6 @@ func main() {
 		}
 
 		for _, m := range messages {
-			// https://groups.google.com/d/msg/golang-nuts/ybwJH4pR0lo/gw38xJgY3AoJ
-			// "%.3f" rounds at the third place after the suffix and truncates to two places after the suffix.
-			//If the suffix would be all zero, it is completely discarded. 
-			//0.5 is rounded towards zero. 
 			s := []string{m.Title, m.TOrd.Format("2006-01-02"), m.TExe.Format("2006-01-02"),
 				strconv.FormatFloat(m.Balance, 'f', 2, 64), strconv.FormatFloat(m.Saldo, 'f', 2, 64)}
 			err := writer.Write(s)
