@@ -6,8 +6,10 @@ import (
 	"log"
 	"os"
 	"rofrol/helper"
+	"bytes"
 )
 
+var table *html.Node
 func main() {
 	var page *os.File
 	var err error
@@ -29,6 +31,9 @@ func main() {
 					fmt.Println(a.Val)
 					t := helper.FoundClass(a.Val, "contentRoles6")
 					fmt.Println("found class?", t)
+					if t {
+						table = n
+					}
 					break
 				}
 			}
@@ -36,6 +41,44 @@ func main() {
 		for c := n.FirstChild; c != nil; c = c.NextSibling {
 			f(c)
 		}
-	}
-	f(doc)
+
+	child = div.FirstChild
+	html.Render(output, child)
+
+/*
+	for child = child.NextSibling; child == nil; child = child.NextSibling {}
+	html.Render(output, child)
+
+	for child = child.NextSibling; child == nil; child = child.NextSibling {}
+	html.Render(output, child)
+*/
+
+	accounts_history_1 := string(output.Bytes())
+	output.Reset()
+
+	td = td.NextSibling
+	html.Render(output, td.FirstChild)
+	accounts_history_2 := string(output.Bytes())
+	output.Reset()
+
+	td = td.NextSibling
+	html.Render(output, td.FirstChild)
+	accounts_history_3 := string(output.Bytes())
+	output.Reset()
+
+	td = td.NextSibling
+	html.Render(output, td.FirstChild)
+	accounts_history_4 := string(output.Bytes())
+	output.Reset()
+
+	td = td.NextSibling
+	html.Render(output, td.FirstChild)
+	accounts_history_5 := string(output.Bytes())
+	output.Reset()
+
+	fmt.Println("1", accounts_history_1)
+	fmt.Println("2", accounts_history_2)
+	fmt.Println("3", accounts_history_3)
+	fmt.Println("4", accounts_history_4)
+	fmt.Println("5", accounts_history_5)
 }
