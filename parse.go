@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"rofrol/helper"
+	"github.com/rofrol/helper"
 	"strconv"
 )
 

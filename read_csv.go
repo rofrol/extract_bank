@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-func main() {
+func read() {
 	file, err := os.Open("test.csv")
 	if err != nil {
 		fmt.Println("Error:", err)
