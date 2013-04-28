@@ -16,7 +16,12 @@ func main() {
 	if page, err = os.Open("bank_2012.html"); err != nil {
 		panic(err)
 	}
-	defer page.Close()
+
+	defer func() {
+		if err := page.Close(); err != nil {
+			panic(err)
+		}
+	}()
 
 	doc, err := html.Parse(page)
 	if err != nil {
@@ -57,6 +62,13 @@ func main() {
 				log.Fatal(err)
 			}
 		}
-		f.Close()
+
+		defer func() {
+			if err := f.Close(); err != nil {
+				panic(err)
+			}
+		}()
+
+		writer.Flush()
 	}
 }
