@@ -4,16 +4,16 @@ import (
 	"code.google.com/p/go.net/html"
 	"encoding/csv"
 	"fmt"
+	"github.com/rofrol/helper"
 	"log"
 	"os"
-	"github.com/rofrol/helper"
 	"strconv"
 )
 
-func main() {
+func Rows(filename string) {
 	var page *os.File
 	var err error
-	if page, err = os.Open("bank_2012.html"); err != nil {
+	if page, err = os.Open(filename); err != nil {
 		panic(err)
 	}
 
@@ -71,4 +71,8 @@ func main() {
 
 		writer.Flush()
 	}
+}
+
+func main() {
+	Rows(os.Args[1])
 }
