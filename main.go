@@ -7,7 +7,6 @@ import (
 	"github.com/rofrol/helper"
 	"log"
 	"os"
-	"strconv"
 )
 
 func Rows(filename string) {
@@ -33,10 +32,10 @@ func Rows(filename string) {
 		tbody := helper.FirstChildByTag(table, "tbody")
 		trArr := helper.ElementsByTag(tbody, "tr")
 
-		var messages []helper.Message
+		var messages []Message
 		for _, tr := range trArr {
 			tdArr := helper.ElementsByTag(tr, "td")
-			messages = append(messages, helper.String2Message(tdArr))
+			messages = append(messages, String2Message(tdArr))
 		}
 		filename := "test.csv"
 
@@ -48,16 +47,13 @@ func Rows(filename string) {
 
 		writer := csv.NewWriter(f)
 
-		headers := []string{"Opis", "Data złożenia dyspozycji", "Data waluty", "Kwota", "Saldo po operacji"}
-		err = writer.Write(headers)
+		err = writer.Write(Headers())
 		if err != nil {
 			log.Fatal(err)
 		}
 
 		for _, m := range messages {
-			s := []string{m.Title, m.TOrd.Format("2006-01-02"), m.TExe.Format("2006-01-02"),
-				strconv.FormatFloat(m.Balance, 'f', 2, 64), strconv.FormatFloat(m.Saldo, 'f', 2, 64)}
-			err := writer.Write(s)
+			err := writer.Write(m.ArrString())
 			if err != nil {
 				log.Fatal(err)
 			}
